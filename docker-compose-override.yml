@@ -1,0 +1,42 @@
+version: "3.3"
+
+services:
+  cvat_proxy:
+    environment:
+        CVAT_HOST: videoannotation.qcdevpro.com
+  cvat:
+    volumes:
+      - cvat_share:/home/django/share:ro
+      - cvat_data:/home/django/data
+      - cvat_keys:/home/django/keys
+      - cvat_logs:/home/django/logs
+  cvat_db:
+    volumes:
+      - cvat_db:/var/lib/postgresql/data
+
+volumes:
+  cvat_data:
+    driver_opts:
+      type: none
+      device: /home/ubuntu/cvat_data
+      o: bind
+  cvat_keys:
+    driver_opts:
+      type: none
+      device: /home/ubuntu/cvat_keys
+      o: bind
+  cvat_logs:
+    driver_opts:
+      type: none
+      device: /home/ubuntu/cvat_logs
+      o: bind
+  cvat_db:
+    driver_opts:
+      type: none
+      device: /home/ubuntu/cvat_db
+      o: bind
+  cvat_share:
+    driver_opts:
+      type: none
+      device: /home/ubuntu/cvat_shared_data
+      o: bind
